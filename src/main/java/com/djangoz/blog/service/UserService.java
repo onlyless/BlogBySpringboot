@@ -14,4 +14,5 @@ public class UserService {
         User user = userDao.findByUsernameAndPassword(username,password);
         return !(user==null);
     }
+
 }

@@ -55,7 +55,7 @@ public class UserController {
             session.setAttribute("user",user);
             System.out.println(user.getUsername()+"====="+user.getPassword());
 
-            return "admin/index";
+            return "admin/";
         }else{
             model.addAttribute("error","用户名或者密码错误");
             return "admin/login";
@@ -76,10 +76,10 @@ public class UserController {
         return "admin/write";
     }
 
-    @RequestMapping("/delete/{id")
+    @RequestMapping(value = "/delete/{id}",method = RequestMethod.GET)
     public String delete(@PathVariable("id")Long id){
         articleService.deleteByid(id);
-        return "/admin/";
+        return "redirect:/admin/";
     }
 
     @RequestMapping(value = "/save",method = RequestMethod.POST)
@@ -95,5 +95,15 @@ public class UserController {
         article.setDate(dateFormat.format(new Date()));
         articleService.save(article);
         return "redirect:/admin/";
+    }
+
+    @RequestMapping("/update/{id}")
+    public String update(@PathVariable("id")Long id,Model model){
+        Article article = articleService.getById(id);
+        model.addAttribute("target",article);
+        List<Category> categories = categoryService.getAllCategory();
+        model.addAttribute("categories",categories);
+        model.addAttribute("article",article);
+        return "admin/mange";
     }
 }

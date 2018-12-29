@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>管理员首页</title>
     <link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 </head>
 <body>
 <div class="container">
     <div th:include="/layout/head::header"></div>
     <div th:if="${session.user}">
-        欢迎登陆<span th:text="${session.user.username}"
+        欢迎登陆<span th:text="${session.user.username}"></span>
     </div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">文章列表</div>
+            <div class="panel-body">
+                <p><a class="btn btn-primary btn-sm" th:href="@{/admin/write}" role="button">写博客</a></p>
+            </div>
+
+            <table class="table">
+                <tr class="info">
+                    <td>编号</td>
+                    <td>标题</td>
+                    <td>摘要</td>
+                    <td>发表时间</td>
+                    <td style="text-align: center" colspan="2">操作</td>
+                </tr>
+                <tr th:each="article:${articles}">
+                    <td th:text="${article.id}"></td>
+                    <td th:text="${article.title}"></td>
+                    <td th:text="${article.summary}"></td>
+                    <td th:text="${article.date}"></td>
+                    <td><a th:href="@{'/admin/update/'+${article.id}}">修改</a></td>
+                    <td><a th:href="@{'/admin/delete/'+${article.id}}">删除</a></td>
+                </tr>
+            </table>
+        </div>
 </div>
 
 <script th:src="@{/jquery-3.3.1.min.js}" type="text/javascript"></script>
