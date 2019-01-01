@@ -5,7 +5,7 @@
     <link th:href="@{/css/floating-labels.css}" rel="stylesheet">
 </head>
 <body>
-    <form class="form-signin" action="/admin/dologin" method="post">
+    <form class="form-signin" action="/admin/login.do" method="post">
         <div content="text-center mb-4"><h1 class="text-center mb-4">登录</h1></div>
         <div th:if="${error}">
             <div th:text="${error}" style="color:#F00"></div>
@@ -27,7 +27,7 @@
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
-<script th:src="@{/jquery-3.3.1.min.js}" type="text/javascript"></script>
+<script th:src="@{/js/jquery-3.3.1.min.js}" type="text/javascript"></script>
 <script th:src="@{/bootstrap/js/bootstrap.bundle.js}" type="text/javascript"></script>
 </body>
 </html>

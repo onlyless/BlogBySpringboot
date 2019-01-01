@@ -47,7 +47,7 @@ public class UserController {
         return "admin/login";
     }
 
-    @RequestMapping(value = "/dologin",method = RequestMethod.POST)
+    @RequestMapping(value = "/login.do",method = RequestMethod.POST)
     public String CheckLogin(HttpServletResponse response, HttpSession session, User user, Model model){
         if(userService.login(user.getUsername(),user.getPassword())){
             Cookie cookie = new Cookie("user",user.toString());
@@ -55,17 +55,17 @@ public class UserController {
             session.setAttribute("user",user);
             System.out.println(user.getUsername()+"====="+user.getPassword());
 
-            return "admin/";
+            return "redirect:/admin/";
         }else{
             model.addAttribute("error","用户名或者密码错误");
-            return "admin/login";
+            return "redirect:/admin/login";
         }
     }
 
     @RequestMapping(value = "/logout")
     public String SignOut(HttpSession session){
         session.removeAttribute("user");
-        return "index";
+        return "redirect:/";
     }
 
     @RequestMapping("/write")

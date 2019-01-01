@@ -1,3 +1,7 @@
+## v0.2
+Add Features:
+- Add authenticate filter to verifty login
+
 ## v0.1
 Add Features:
 - Modify article

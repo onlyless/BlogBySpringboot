@@ -18,11 +18,6 @@ public class ArticleController {
     @Autowired
     ArticleService articleService;
 
-    @RequestMapping("/get/{id}")
-    public String get(Model model, @PathVariable(name = "id")Long id){
-        return "index";
-    }
-
     @RequestMapping("")
     public String getAllArticles(Model model){
         List<Article> articles = articleService.getAllArticle();
