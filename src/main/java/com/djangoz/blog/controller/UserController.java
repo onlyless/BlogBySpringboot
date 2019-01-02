@@ -17,12 +17,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
 public class UserController {
+
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Autowired
     UserService userService;
@@ -33,11 +36,10 @@ public class UserController {
     @Autowired
     CategoryService categoryService;
 
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
     @RequestMapping("")
     public String Index(Model model){
         List<Article> articles = articleService.getAllArticle();
+        Collections.sort(articles);
         model.addAttribute("articles",articles);
         return "admin/index";
     }
@@ -78,7 +80,7 @@ public class UserController {
 
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.GET)
     public String delete(@PathVariable("id")Long id){
-        articleService.deleteByid(id);
+        articleService.deleteById(id);
         return "redirect:/admin/";
     }
 

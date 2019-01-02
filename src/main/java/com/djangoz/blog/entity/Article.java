@@ -1,11 +1,13 @@
 package com.djangoz.blog.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
 @Table(name="article")
-public class Article {
+public class Article implements Comparable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id",columnDefinition = "int")
@@ -72,5 +74,10 @@ public class Article {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return ((Article)o).getDate().compareTo(this.getDate());
     }
 }

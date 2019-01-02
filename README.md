@@ -1,3 +1,6 @@
+## v0.2.1
+Made an optimization
+
 ## v0.2
 Add Features:
 - Add authenticate filter to verifty login

@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -21,6 +22,7 @@ public class ArticleController {
     @RequestMapping("")
     public String getAllArticles(Model model){
         List<Article> articles = articleService.getAllArticle();
+        Collections.sort(articles);
         model.addAttribute("articles",articles);
         return "index";
     }
