@@ -1,3 +1,6 @@
+## v0.2.2
+Implement a simple cache in the Article object
+
 ## v0.2.1
 Made an optimization
 

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name="article")
@@ -80,4 +81,23 @@ public class Article implements Comparable{
     public int compareTo(Object o) {
         return ((Article)o).getDate().compareTo(this.getDate());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Article article = (Article) o;
+        return Objects.equals(id, article.id) &&
+                Objects.equals(title, article.title) &&
+                Objects.equals(content, article.content) &&
+                Objects.equals(category, article.category) &&
+                Objects.equals(summary, article.summary) &&
+                Objects.equals(date, article.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, content, category, summary, date);
+    }
+
 }

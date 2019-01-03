@@ -6,27 +6,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ArticleService {
     @Autowired
     private ArticleDao articleDao;
 
-    private static List<Article> cacheArticle = new ArrayList<>();
+    private static List<Article> cacheArticles = new ArrayList<>();
+    private static Map<Long,Article> cacheArticle = new HashMap<>();
 
     public Article getById(Long id){
+        if(cacheArticle.containsKey(id)){
+            return cacheArticle.get(id);
+        }
         Article article = articleDao.findById(id).get();
+        cacheArticle.put(id,article);
         System.out.println("对"+ article.getTitle() + "做了数据缓存++++++++++++++++=");
         return article;
     }
 
     public List<Article> getAllArticle(){
-        if(cacheArticle.size()!=0){
-            return cacheArticle;
+        if(cacheArticles.size()!=0){
+            return cacheArticles;
         }
-        cacheArticle = articleDao.findAll();
-        return cacheArticle;
+        cacheArticles = articleDao.findAll();
+        return cacheArticles;
     }
 
     public List<Article> getByCategoryName(String categoryName){
@@ -34,12 +41,14 @@ public class ArticleService {
     }
 
     public void deleteById(Long id){
-        cacheArticle.clear();
+        cacheArticles.clear();
+        cacheArticle.remove(id);
         articleDao.deleteById(id);
     }
 
     public void save(Article article){
-        cacheArticle.clear();
+        cacheArticles.clear();
+        cacheArticle.put(article.getId(),article);
         articleDao.save(article);
         System.out.println("对"+ article.getTitle() + "做了数据缓存===============");
     }

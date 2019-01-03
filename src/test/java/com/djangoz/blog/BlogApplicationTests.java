@@ -28,8 +28,9 @@ public class BlogApplicationTests {
         System.out.println(articles.size());
         Article article = articles.get(0);
         String date = article.getDate();
-        article.setDate(dateFormat.format(new Date()));
-        articleService.save(article);
+//        article.setDate(dateFormat.format(new Date()));
+//        articleService.save(article);
+        articleService.deleteById(article.getId());
         List<Article> articles1 = articleService.getAllArticle();
         System.out.println(articles1.size());
         Article article1 = articles1.get(0);
